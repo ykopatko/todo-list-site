@@ -31,14 +31,10 @@ class TagDeleteView(generic.DeleteView):
 
 class TaskListView(generic.ListView):
     model = Task
-    paginate_by = 5
+    paginate_by = 8
 
     class Meta:
         ordering = ["completed", "-created_at"]
-
-
-class TaskDetailView(generic.DetailView):
-    model = Task
 
 
 class TaskCreateView(generic.CreateView):
@@ -50,12 +46,7 @@ class TaskCreateView(generic.CreateView):
 class TaskUpdateView(generic.UpdateView):
     model = Task
     form_class = TaskForm
-
-    def get_success_url(self):
-        return reverse_lazy(
-            "list:task-detail",
-            kwargs={"pk": self.object.pk}
-        )
+    success_url = reverse_lazy("list:task-list")
 
 
 class TaskDeleteView(generic.DeleteView):
