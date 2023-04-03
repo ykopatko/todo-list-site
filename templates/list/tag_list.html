@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>
+    Tag List
+    <a href="{% url 'list:tag-create' %}" class="btn btn-primary link-to-page">
+      Create
+    </a>
+  </h1>
+
+  <div class="row mt-4">
+    {% if tag_list %}
+      {% for tag in tag_list %}
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ tag.name }}</h5>
+              <a href="{% url 'list:tag-update' pk=tag.id %}" class="btn btn-secondary">Update</a>
+              <a href="{% url 'list:tag-delete' pk=tag.id %}" class="btn btn-danger">Delete</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="col-12">
+        <p>There are no any tags.</p>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

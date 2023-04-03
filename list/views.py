@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -32,7 +31,6 @@ class TagDeleteView(generic.DeleteView):
 class TaskListView(generic.ListView):
     model = Task
     paginate_by = 5
-    queryset = Task.objects.all().select_related("tag")
 
 
 class TaskDetailView(generic.DetailView):
@@ -42,7 +40,7 @@ class TaskDetailView(generic.DetailView):
 class TaskCreateView(generic.CreateView):
     model = Task
     form_class = TaskForm
-    success_url = reverse_lazy("list:index")
+    success_url = reverse_lazy("list:task-list")
 
 
 class TaskUpdateView(generic.UpdateView):
@@ -58,4 +56,4 @@ class TaskUpdateView(generic.UpdateView):
 
 class TaskDeleteView(generic.DeleteView):
     model = Task
-    success_url = reverse_lazy("list:index")
+    success_url = reverse_lazy("list:task-list")

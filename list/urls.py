@@ -13,7 +13,7 @@ from list.views import (
 )
 
 urlpatterns = [
-    path("", TaskListView.as_view, name="index"),
+    path("", TaskListView.as_view(), name="task-list"),
     path("tags", TagListView.as_view(), name="tag-list"),
     path(
         "tags/create/",
