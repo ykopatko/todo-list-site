@@ -14,7 +14,10 @@ class Task(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     deadline = models.DateTimeField(null=True, blank=True)
     completed = models.BooleanField(default=False)
-    tags = models.ManyToManyField(Tag, related_name="tasks", blank=True)
+    tags = models.ManyToManyField(Tag, related_name="tasks")
+
+    class Meta:
+        ordering = ["completed", "-created_at"]
 
     def __str__(self):
         return self.content

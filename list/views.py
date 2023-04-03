@@ -31,10 +31,7 @@ class TagDeleteView(generic.DeleteView):
 
 class TaskListView(generic.ListView):
     model = Task
-    paginate_by = 8
-
-    class Meta:
-        ordering = ["completed", "-created_at"]
+    paginate_by = 6
 
 
 class TaskCreateView(generic.CreateView):

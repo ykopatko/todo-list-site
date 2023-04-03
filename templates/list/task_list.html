@@ -15,12 +15,15 @@
         <div class="col-md-4 mb-4">
           <div class="card">
             <div class="card-body">
+              {% for tag in task.tags.all %}
+                <span class="badge badge-primary">{{ tag.name }}</span>
+              {% endfor %}
               {% if task.completed %}
                   <a href="{% url 'list:task_completion' task.id %}" class="btn btn-warning float-right">Undo</a>
               {% else %}
                   <a href="{% url 'list:task_completion' task.id %}" class="btn btn-success float-right">Complete</a>
               {% endif %}
-              <h5 class="card-title">{{ task.content }}</h5>
+              <h5 class="card-title mt-2">{{ task.content }}</h5>
               <p>Created at: {{ task.created_at }}</p>
               <p><strong>Deadline: <span style="color: red;">{{ task.deadline }}</span></strong></p>
               <p><strong>Status: <span style="{% if task.completed %}color: green{% else %}color: orange{% endif %}">{% if task.completed %}Completed{% else %}Not completed{% endif %}</span></strong></p>
