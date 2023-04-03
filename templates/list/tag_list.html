@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>
+    Tag List
+    <a href="{% url 'list:tag-create' %}" class="btn btn-primary link-to-page">
+      Add new tag
+    </a>
+  </h1>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tag in tag_list %}
+          <tr>
+            <td>{{ tag.name }}</td>
+            <td><a href="{% url 'list:tag-update' tag.id %}" class="btn btn-update">Update</a></td>
+            <td><a href="{% url 'list:tag-delete' tag.id %}" class="btn btn-delete">Delete</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+{% endblock %}

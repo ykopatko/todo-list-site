@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %}To-Do List{% endblock %}
+
+{% block content %}
+    <h1>
+      To-do List
+    <a href="{% url 'list:task-create' %}" class="btn btn-primary">Add new task</a>
+    </h1>
+    <p>Welcome to the To-Do List. This is a simple app that allows you to create a list of tasks that you need to complete.</p>
+    <div class="row mt-4">
+    {% if task_list %}
+      {% for task in task_list %}
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              {% for tag in task.tags.all %}
+                <span class="badge badge-primary">{{ tag.name }}</span>
+              {% endfor %}
+              {% if task.completed %}
+                  <a href="{% url 'list:task_completion' task.id %}" class="btn btn-warning float-right">Undo</a>
+              {% else %}
+                  <a href="{% url 'list:task_completion' task.id %}" class="btn btn-success float-right">Complete</a>
+              {% endif %}
+              <h5 class="card-title mt-2">{{ task.content }}</h5>
+              <p>Created at: {{ task.created_at }}</p>
+              <p><strong>Deadline: <span style="color: red;">{{ task.deadline }}</span></strong></p>
+              <p><strong>Status: <span style="{% if task.completed %}color: green{% else %}color: orange{% endif %}">{% if task.completed %}Completed{% else %}Not completed{% endif %}</span></strong></p>
+
+              <a href="{% url 'list:task-update' pk=task.id %}" class="btn btn-secondary btn-sm">Update</a>
+              <a href="{% url 'list:task-delete' pk=task.id %}" class="btn btn-danger btn-sm">Delete</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="col-12">
+        <p>There are nothing to do :) !</p>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
