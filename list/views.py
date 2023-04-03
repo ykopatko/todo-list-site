@@ -32,6 +32,9 @@ class TaskListView(generic.ListView):
     model = Task
     paginate_by = 5
 
+    class Meta:
+        ordering = ["completed", "-created_at"]
+
 
 class TaskDetailView(generic.DetailView):
     model = Task

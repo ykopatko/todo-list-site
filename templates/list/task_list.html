@@ -9,31 +9,23 @@
     <a href="{% url 'list:task-create' %}" class="btn btn-primary">Create</a>
     </h1>
     <p>Welcome to the To-Do List app. This is a simple app that allows you to create a list of tasks that you need to complete.</p>
-
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Task</th>
-          <th>Created at</th>
-          <th>Deadline</th>
-          <th>Completed</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for task in task_list %}
-          <tr>
-            <td>{{ task.content }}</td>
-            <td>{{ task.created_at}}</td>
-            <td>{{ task.deadline }}</td>
-            <td>{{ task.completed }}</td>
-            <td>{{ task.tags }}</td>
-            <td>
-              <a href="{% url 'list:task-update' task.id %}" class="btn btn-update">Update</a>
-              <a href="{% url 'list:task-delete' task.id %}" class="btn btn-delete">Delete</a>
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+    <div class="row mt-4">
+    {% if task_list %}
+      {% for task in task_list %}
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ task.content }}</h5>
+              <a href="{% url 'list:task-update' pk=task.id %}" class="btn btn-secondary">Update</a>
+              <a href="{% url 'list:task-delete' pk=task.id %}" class="btn btn-danger">Delete</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="col-12">
+        <p>There are nothing to do!</p>
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}
