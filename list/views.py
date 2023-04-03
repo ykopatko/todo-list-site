@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -60,3 +61,10 @@ class TaskUpdateView(generic.UpdateView):
 class TaskDeleteView(generic.DeleteView):
     model = Task
     success_url = reverse_lazy("list:task-list")
+
+
+def task_completion(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    task.completed = not task.completed
+    task.save()
+    return redirect("list:task-list")
