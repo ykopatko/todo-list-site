@@ -1,8 +1,9 @@
 from django.urls import path
 
+from list.views import index
 
 urlpatterns = [
-    # path("", index, name="index"), will be added later
+    path("", index, name="index"),
 ]
 
 app_name = "list"
